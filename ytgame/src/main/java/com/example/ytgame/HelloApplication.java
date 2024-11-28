@@ -2,8 +2,6 @@ package com.example.ytgame;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +17,7 @@ public class HelloApplication extends Application {
 
         GamePane panel = new GamePane();
         root.getChildren().add(panel);
+        panel.startGameThread();
         stage.show();
     }
 

@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 
-public class GamePane extends Pane {
+public class GamePane extends Pane implements Runnable{
         // Screen Settings
         final int originalTileSize = 16; // 16x16 tile
         final int scale = 3;
@@ -16,6 +16,8 @@ public class GamePane extends Pane {
 
         private final Canvas canvas;
 
+        Thread gameThread;
+
         public GamePane() {
             // Set preferred size by creating a Canvas
             this.setPrefSize(screenWidth, screenHeight);
@@ -26,9 +28,21 @@ public class GamePane extends Pane {
             // Create a canvas for double buffering
             canvas = new Canvas(screenWidth, screenHeight);
             this.getChildren().add(canvas); // Add canvas to the pane
+
         }
 
         public GraphicsContext getGraphicsContext() {
             return canvas.getGraphicsContext2D(); // To draw on the canvas
         }
+
+        public void startGameThread() {
+            gameThread.start();
+        }
+
+    @Override
+    public void run() {
+        while (gameThread!=null) {
+            System.out.println("game loop is running");
+        }
     }
+}
