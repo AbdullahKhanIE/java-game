@@ -36,13 +36,21 @@ public class GamePane extends Pane implements Runnable{
         }
 
         public void startGameThread() {
+            gameThread = new Thread(this);
             gameThread.start();
         }
 
     @Override
     public void run() {
-        while (gameThread!=null) {
-            System.out.println("game loop is running");
+        while (gameThread != null) {
+            System.out.println("The game loop is running");
+            // 1 UPDATE: update information such as character positions
+            // 2 DRAW: draw the screen with the updated information
+            
+
+
+
+
         }
     }
 }
