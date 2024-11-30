@@ -29,55 +29,90 @@ public class Player extends Entity {
     public void loadPlayerImages() {
         try {
             // Loading images using getClass().getResource() for resources folder
-            up1 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_up_1.png").toExternalForm());
-            up2 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_up_2.png").toExternalForm());
-            down1 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_down_1.png").toExternalForm());
-            down2 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_down_2.png").toExternalForm());
-            left1 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_left_1.png").toExternalForm());
-            left2 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_left_2.png").toExternalForm());
-            right1 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_right_1.png").toExternalForm());
-            right2 = new Image(getClass().getResource("/Walking sprites-20241130T164413Z-001/WalkingSprites/boy_right_2.png").toExternalForm());
+            up1 = new Image(getClass().getResource("/playerIMG/boy_up_1.png").toExternalForm());
+            up2 = new Image(getClass().getResource("/playerIMG/boy_up_2.png").toExternalForm());
+            down1 = new Image(getClass().getResource("/playerIMG/boy_down_1.png").toExternalForm());
+            down2 = new Image(getClass().getResource("/playerIMG/boy_down_2.png").toExternalForm());
+            left1 = new Image(getClass().getResource("/playerIMG/boy_left_1.png").toExternalForm());
+            left2 = new Image(getClass().getResource("/playerIMG/boy_left_2.png").toExternalForm());
+            right1 = new Image(getClass().getResource("/playerIMG/boy_right_1.png").toExternalForm());
+            right2 = new Image(getClass().getResource("/playerIMG/boy_right_2.png").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace(); // Print error if images fail to load
         }
     }
 
     public void update() {
-        // Movement logic
-        if (keyH.upPressed) {
-            direction = "up";
-            y -= speed; // Move up
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            // Movement logic
+            if (keyH.upPressed) {
+                direction = "up";
+                y -= speed; // Move up
+            }
+            if (keyH.downPressed) {
+                direction = "down";
+                y += speed; // Move down
+            }
+            if (keyH.leftPressed) {
+                direction = "left";
+                x -= speed; // Move left
+            }
+            if (keyH.rightPressed) {
+                direction = "right";
+                x += speed; // Move right
+            }
+            spriteCounter++;
+            if (spriteCounter >= 12) {
+                if (spriteNum == 1){
+                    spriteNum = 2;
+                }
+                else if (spriteNum == 2){
+                    spriteNum = 1;
+                }
+                spriteCounter = 0;
+
         }
-        if (keyH.downPressed) {
-            direction = "down";
-            y += speed; // Move down
-        }
-        if (keyH.leftPressed) {
-            direction = "left";
-            x -= speed; // Move left
-        }
-        if (keyH.rightPressed) {
-            direction = "right";
-            x += speed; // Move right
+
+
         }
     }
 
     public void draw(GraphicsContext gc) {
-        gc.clearRect(0, 0, gp.screenWidth, gp.screenHeight); // Clear screen
+//        gc.clearRect(0, 0, gp.screenWidth, gp.screenHeight); // Clear screen
         Image image = null;
 
         switch (direction) {
             case "up":
-                image = up1;
+                if (spriteNum == 1){
+                    image = up1;
+                }
+                if (spriteNum == 2){
+                    image = up2;
+                }
                 break;
             case "down":
-                image = down1;
+                if (spriteNum == 1){
+                    image = down1;
+                }
+                if (spriteNum == 2){
+                    image = down2;
+                }
                 break;
             case "left":
-                image = left1;
+                if (spriteNum == 1){
+                    image = left1;
+                }
+                if (spriteNum == 2){
+                    image = left2;
+                }
                 break;
             case "right":
-                image = right1;
+                if (spriteNum == 1){
+                    image = right1;
+                }
+                if (spriteNum == 2){
+                    image = right2;
+                }
                 break;
         }
 
