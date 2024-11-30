@@ -1,23 +1,29 @@
 package com.example.ytgame;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         stage.setTitle("2D Game");
         Group root = new Group();
-        Scene scene = new Scene(root);
+        final double screenWidth = javafx.stage.Screen.getPrimary().getBounds().getWidth();
+        final double screenHeight = javafx.stage.Screen.getPrimary().getBounds().getHeight();
+
+        Scene scene = new Scene(root, screenWidth, screenHeight);
+
         stage.setScene(scene);
         stage.setResizable(false);
 
-        GamePane panel = new GamePane();
+        GamePanel panel = new GamePanel();
         root.getChildren().add(panel);
-        panel.startGameThread();
+
+        panel.keyH.attachToScene(scene);  // Attach key handler before starting the game loop
+        panel.startGameThread(); // Start the game loop
+
         stage.show();
     }
 
